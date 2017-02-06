@@ -3,9 +3,9 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput; //追加
 
 public class player : MonoBehaviour {
-	public float moveSpeed = 5f;					//
-	public float rotationSpeed = 360f;			//
-	CharacterController characterController;			//
+	public float moveSpeed = 5f;			//移動速度
+	public float rotationSpeed = 2f;		//旋回速度
+	CharacterController characterController;//コンポーネントを行ける用
 
 	void Start () {
 		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく
@@ -16,22 +16,23 @@ public class player : MonoBehaviour {
 //		Debug.Log( "Horizontal : " + CrossPlatformInputManager.GetAxisRaw("Horizontal") );
 //		Debug.Log( "Vertical : " + CrossPlatformInputManager.GetAxisRaw("Vertical") );
 
+		//移動量からキー入力方向を取得
 		Vector3 direction = new Vector3(	CrossPlatformInputManager.GetAxisRaw("Horizontal"),
 											0,
 											CrossPlatformInputManager.GetAxisRaw("Vertical")
 		);
-//		Vector3 direction = new Vector3(	Input.GetAxis("Horizontal"),
-//											0,
-//											Input.GetAxis("Vertical")
-//		);
 		
+		//移動量があったら
 		if(direction.sqrMagnitude > 0.01f){
-					Vector3 forward = Vector3.Slerp(	transform.forward,
+			//現在の向きとキー入力方向から、新しい向きを求める
+			Vector3 forward = Vector3.Slerp(	transform.forward,
 												direction,
 												rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction)
 			);
-			transform.LookAt(transform.position + forward);
+			//実際に向きを変更
+			transform.LookAt(transform.position + forward);	
 		}
+		//実際に移動
 		characterController.Move(direction * moveSpeed * Time.deltaTime);
 	}
 }

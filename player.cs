@@ -5,10 +5,11 @@ using UnityStandardAssets.CrossPlatformInput; //追加
 public class player : MonoBehaviour {
 	public float moveSpeed = 5f;			//移動速度
 	public float rotationSpeed = 2f;		//旋回速度
-	CharacterController characterController;//コンポーネントを行ける用
+	CharacterController characterController;//コンポーネントを入れる用
+	bool shoorFlag;							//ショットフラグ
 
 	void Start () {
-		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく
+		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく	
 	}
 	
 	void Update () {
@@ -34,5 +35,30 @@ public class player : MonoBehaviour {
 		}
 		//実際に移動
 		characterController.Move(direction * moveSpeed * Time.deltaTime);
+
+		//ショットボタン処理(Button Handletで設定したNameを使用)
+		if(CrossPlatformInputManager.GetButtonDown("Shot")){	//パッドのボタン入力判定
+			//発射処理
+			shoorFlag = true;
+			Debug.Log("Shot!!");
+		}else{
+			//発射しない処理
+			shoorFlag = false;
+		}
+	}
+
+	//他のオブジェクトとの当たり判定
+	void OnTriggerEnter(Collider other){
+		if(other.tag == "Dot"){
+			Destroy(other.gameObject);	//相手を削除
+		}
+		if(other.tag == "Enemy"){
+			Invoke("NextScene",1.0f);	//指定時間後に実行
+		}
+	}
+
+	//シーン遷移
+	void NextScene(){
+		Application.LoadLevel("title");	//シーンが呼ばれる
 	}
 }

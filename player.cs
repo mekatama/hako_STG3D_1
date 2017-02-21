@@ -8,6 +8,9 @@ public class player : MonoBehaviour {
 	CharacterController characterController;//コンポーネントを入れる用
 	bool shoorFlag;							//ショットフラグ
 
+	public GameObject bulletObject = null;			//弾プレハブ
+	public Transform bulletStartPosition = null;	//弾の発射位置を取得するボーン
+
 	void Start () {
 		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく	
 	}
@@ -40,6 +43,13 @@ public class player : MonoBehaviour {
 		if(CrossPlatformInputManager.GetButtonDown("Shot")){	//パッドのボタン入力判定
 			//発射処理
 			shoorFlag = true;
+			//弾を発車する位置のボーンはあるか確認する
+			if( null!=bulletStartPosition) {
+				//弾を生成する位置を指定する
+				Vector3 vecBulletPos	= bulletStartPosition.position;
+				//弾を生成する
+				Instantiate( bulletObject, vecBulletPos, transform.rotation);
+			}
 			Debug.Log("Shot!!");
 		}else{
 			//発射しない処理
@@ -53,7 +63,7 @@ public class player : MonoBehaviour {
 			Destroy(other.gameObject);	//相手を削除
 		}
 		if(other.tag == "Enemy"){
-			Invoke("NextScene",1.0f);	//指定時間後に実行
+//			Invoke("NextScene",1.0f);	//指定時間後に実行
 		}
 	}
 

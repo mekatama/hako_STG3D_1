@@ -5,14 +5,20 @@ public class Enemy : MonoBehaviour {
 	public GameObject targe;
 	NavMeshAgent agent;
 
-	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();	//コンポーネントをキャッシュしておく
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		//targetに向かうようになる
 		agent.destination = targe.transform.position;
+	}
+
+	//他のオブジェクトとの当たり判定
+	void OnTriggerEnter( Collider other) {
+		if(other.tag == "Ballet"){
+			//このGameObjectを［Hierrchy］ビューから削除する
+			Destroy( gameObject);
+		}
 	}
 }

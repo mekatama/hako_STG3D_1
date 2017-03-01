@@ -11,6 +11,9 @@ public class player : MonoBehaviour {
 	public GameObject bulletObject = null;			//弾プレハブ
 	public Transform bulletStartPosition = null;	//弾の発射位置を取得するボーン
 
+	private float timeOut = 0.2f;		//弾の連射間隔
+	private float timeElapsed = 0.0f;	//弾の連射間隔カウント用
+
 	void Start () {
 		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく	
 	}
@@ -39,20 +42,21 @@ public class player : MonoBehaviour {
 		//実際に移動
 		characterController.Move(direction * moveSpeed * Time.deltaTime);
 
-		//ショットボタン処理(Button Handletで設定したNameを使用)
+		timeElapsed += Time.deltaTime;
+        if(timeElapsed >= timeOut) {
+			//弾を生成する位置を指定する
+			Vector3 vecBulletPos	= bulletStartPosition.position;
+			//弾を生成する
+			Instantiate( bulletObject, vecBulletPos, transform.rotation);
+			timeElapsed = 0.0f;
+		}
+
+		//ボタン処理(Button Handletで設定したNameを使用)
 		if(CrossPlatformInputManager.GetButtonDown("Shot")){	//パッドのボタン入力判定
-			//発射処理
+			//入力処理
 			shoorFlag = true;
-			//弾を発車する位置のボーンはあるか確認する
-			if( null!=bulletStartPosition) {
-				//弾を生成する位置を指定する
-				Vector3 vecBulletPos	= bulletStartPosition.position;
-				//弾を生成する
-				Instantiate( bulletObject, vecBulletPos, transform.rotation);
-			}
-			Debug.Log("Shot!!");
 		}else{
-			//発射しない処理
+			//入力しない処理
 			shoorFlag = false;
 		}
 	}

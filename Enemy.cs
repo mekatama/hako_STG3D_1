@@ -2,16 +2,18 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-	public GameObject targe;
-	NavMeshAgent agent;
+	NavMeshAgent agent;	//ナビメッシュ用
+	Transform player;	//位置情報とか入れるっぽい
 
 	void Start () {
-		agent = GetComponent<NavMeshAgent>();	//コンポーネントをキャッシュしておく
+		agent = GetComponent<NavMeshAgent>();							//コンポーネントをキャッシュしておく
+		player = GameObject.FindGameObjectWithTag ("Player").transform;	//Playerタグの位置情報ゲット
 	}
 	
 	void Update () {
 		//targetに向かうようになる
-		agent.destination = targe.transform.position;
+//		agent.SetDestination(player.position);	//無駄かもしれないけど毎フレーム追いかける
+		agent.destination = player.position;	//どっちでも動く
 	}
 
 	//他のオブジェクトとの当たり判定

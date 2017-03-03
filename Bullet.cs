@@ -17,5 +17,9 @@ public class Bullet : MonoBehaviour {
 			//このGameObjectを［Hierrchy］ビューから削除する
 			Destroy( gameObject);
 		}
+		if(other.tag == "Enemy"){
+			//このGameObjectを［Hierrchy］ビューから削除する
+			Destroy( gameObject);
+		}
 	}
 }

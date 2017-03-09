@@ -8,11 +8,8 @@ public class EnemyGenerator : MonoBehaviour {
 	
 	void Update () {
 		timeElapsed += Time.deltaTime;
-
         if(timeElapsed >= timeOut) {
-			//弾を生成する位置を指定する
-//			Vector3 vecSpawnPos	= this.position;
-			//弾を生成する
+			//敵を生成する
 			Instantiate( enemyObject, transform.position, transform.rotation);
 			timeElapsed = 0.0f;
  		}

@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-	NavMeshAgent agent;	//ナビメッシュ用
-	Transform player;	//位置情報とか入れるっぽい
+	NavMeshAgent agent;		//ナビメッシュ用
+	Transform player;		//位置情報とか入れるっぽい
+	public int enemyHp;		//EnemyのHP
 
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();							//コンポーネントをキャッシュしておく
@@ -19,8 +20,13 @@ public class Enemy : MonoBehaviour {
 	//他のオブジェクトとの当たり判定
 	void OnTriggerEnter( Collider other) {
 		if(other.tag == "Ballet"){
-			//このGameObjectを［Hierrchy］ビューから削除する
-			Destroy( gameObject);
+			Bullet s = other.GetComponent<Bullet>();	//接触したBulletのコンポーネントを取得
+			enemyHp = enemyHp - s.attackPower;			//Bulletスクリプトの攻撃力をHPから引く
+			Debug.Log(enemyHp);
+			if(enemyHp <= 0){
+				//このGameObjectを［Hierrchy］ビューから削除する
+				Destroy(gameObject);
+			}
 		}
 	}
 }

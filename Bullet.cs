@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	public float bulletMoveSpeed = 10.0f;	//1秒間に弾が進む距離
+	public int attackPower = 1;				//弾の攻撃力
 
 	void Update() {
 		//1秒間の移動量

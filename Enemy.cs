@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour {
 	NavMeshAgent agent;		//ナビメッシュ用
 	Transform player;		//位置情報とか入れるっぽい
 	public int enemyHp;		//EnemyのHP
+	public GameObject item;	//Enemyから出現させるアイテム
 
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();							//コンポーネントをキャッシュしておく
@@ -26,6 +27,10 @@ public class Enemy : MonoBehaviour {
 			if(enemyHp <= 0){
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
+				//四分の一の確率で回復アイテムを落とす
+				if (Random.Range (0, 4) == 0) {
+					Instantiate (item, transform.position, transform.rotation);
+				}
 			}
 		}
 	}

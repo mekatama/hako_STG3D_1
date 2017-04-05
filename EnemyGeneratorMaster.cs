@@ -18,11 +18,11 @@ public class EnemyGeneratorMaster : MonoBehaviour {
 			}
 			if(Random.Range(0,2) == 0){
 				//敵を生成
-				Instantiate( enemyObject, enemyPop2.transform.position, enemyPop2.transform.rotation);
+//				Instantiate( enemyObject, enemyPop2.transform.position, enemyPop2.transform.rotation);
 			}
 			if(Random.Range(0,2) == 0){
 				//敵を生成
-				Instantiate( enemyObject, enemyPop3.transform.position, enemyPop3.transform.rotation);
+//				Instantiate( enemyObject, enemyPop3.transform.position, enemyPop3.transform.rotation);
 			}
 //			Debug.Log("pop!");
 			timeElapsed = 0.0f;

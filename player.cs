@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput; //追加
+using UnityEngine.UI;
 
 public class player : MonoBehaviour {
 	public float moveSpeed = 5f;			//移動速度
@@ -63,9 +64,6 @@ public class player : MonoBehaviour {
 
 	//他のオブジェクトとの当たり判定
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Dot"){
-			Destroy(other.gameObject);	//相手を削除
-		}
 		if(other.tag == "Enemy"){
 //			Invoke("NextScene",1.0f);	//指定時間後に実行
 		}

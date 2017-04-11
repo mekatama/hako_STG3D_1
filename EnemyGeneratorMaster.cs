@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class EnemyGeneratorMaster : MonoBehaviour {
-	public GameObject enemyObject;			//Enemyプレハブ
+	public GameObject enemyObject01;		//Enemyプレハブ
+	public GameObject enemyObject02;		//Enemyプレハブ
 	public GameObject enemyPop1;			//出現位置用の空のオブジェクト
 	public GameObject enemyPop2;			//出現位置用の空のオブジェクト
 	public GameObject enemyPop3;			//出現位置用の空のオブジェクト
@@ -14,11 +15,11 @@ public class EnemyGeneratorMaster : MonoBehaviour {
         if(timeElapsed > timeOut) {
 			if(Random.Range(0,2) == 0){
 				//敵を生成
-				Instantiate( enemyObject, enemyPop1.transform.position, enemyPop1.transform.rotation);
+				Instantiate( enemyObject01, enemyPop1.transform.position, enemyPop1.transform.rotation);
 			}
-			if(Random.Range(0,2) == 0){
+			if(Random.Range(0,2) == 1){
 				//敵を生成
-//				Instantiate( enemyObject, enemyPop2.transform.position, enemyPop2.transform.rotation);
+				Instantiate( enemyObject02, enemyPop2.transform.position, enemyPop2.transform.rotation);
 			}
 			if(Random.Range(0,2) == 0){
 				//敵を生成

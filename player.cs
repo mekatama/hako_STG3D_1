@@ -3,7 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput; //追加
 using UnityEngine.UI;
 
-public class player : MonoBehaviour {
+public class Player : MonoBehaviour {
 	public float moveSpeed = 5f;			//移動速度
 	public float rotationSpeed = 2f;		//旋回速度
 	CharacterController characterController;//コンポーネントを入れる用

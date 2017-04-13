@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	public GameObject bulletObject = null;			//弾プレハブ
 	public Transform bulletStartPosition = null;	//弾の発射位置を取得するボーン
 
-	private float timeOut = 0.2f;		//弾の連射間隔
+	public float timeOut = 0.4f;		//弾の連射間隔
 	private float timeElapsed = 0.0f;	//弾の連射間隔カウント用
 
 	void Start () {

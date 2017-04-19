@@ -9,8 +9,11 @@ public class Player : MonoBehaviour {
 	CharacterController characterController;//コンポーネントを入れる用
 	bool shoorFlag;							//ショットフラグ
 
+	public int shotLevel;							//ショットレベル
 	public GameObject bulletObject = null;			//弾プレハブ
 	public Transform bulletStartPosition = null;	//弾の発射位置を取得するボーン
+	public Transform bulletStartPosition2a = null;	//弾の発射位置を取得するボーン
+	public Transform bulletStartPosition2b = null;	//弾の発射位置を取得するボーン
 
 	public float timeOut = 0.4f;		//弾の連射間隔
 	private float timeElapsed = 0.0f;	//弾の連射間隔カウント用
@@ -45,10 +48,20 @@ public class Player : MonoBehaviour {
 
 		timeElapsed += Time.deltaTime;
         if(timeElapsed >= timeOut) {
-			//弾を生成する位置を指定する
-			Vector3 vecBulletPos	= bulletStartPosition.position;
-			//弾を生成する
-			Instantiate( bulletObject, vecBulletPos, transform.rotation);
+			//パワーアップで発射する弾丸数を増やす
+			if(shotLevel == 0){
+				//弾を生成する位置を指定する
+				Vector3 vecBulletPos	= bulletStartPosition.position;
+				//弾を生成する
+				Instantiate( bulletObject, vecBulletPos, transform.rotation);
+			}else if(shotLevel == 1){
+				//弾を生成する位置を指定する(2方向)
+				Vector3 vecBulletPos2a	= bulletStartPosition2a.position;
+				Vector3 vecBulletPos2b	= bulletStartPosition2b.position;
+				//弾を生成する(2方向)
+				Instantiate( bulletObject, vecBulletPos2a, transform.rotation);
+				Instantiate( bulletObject, vecBulletPos2b, transform.rotation);
+			}
 			timeElapsed = 0.0f;
 		}
 

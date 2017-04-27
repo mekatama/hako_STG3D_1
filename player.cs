@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 	public float timeOut = 0.4f;		//弾の連射間隔
 	private float timeElapsed = 0.0f;	//弾の連射間隔カウント用
 
+	public GameObject bomObject = null;			//ボムのプレハブ
+
 	void Start () {
 		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく	
 	}
@@ -68,6 +70,11 @@ public class Player : MonoBehaviour {
 		//ボタン処理(Button Handletで設定したNameを使用)
 		if(CrossPlatformInputManager.GetButtonDown("Shot")){	//パッドのボタン入力判定
 			//入力処理
+			Debug.Log("BOM!!");
+			//ボムは、弾を生成する位置と同じ
+			Vector3 vecBomPos	= bulletStartPosition.position;
+			//ボムを生成する
+			Instantiate( bomObject, vecBomPos, transform.rotation);
 			shoorFlag = true;
 		}else{
 			//入力しない処理

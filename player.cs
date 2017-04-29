@@ -18,10 +18,12 @@ public class Player : MonoBehaviour {
 	public float timeOut = 0.4f;		//弾の連射間隔
 	private float timeElapsed = 0.0f;	//弾の連射間隔カウント用
 
-	public GameObject bomObject = null;			//ボムのプレハブ
+	public GameObject bomObject = null;	//ボムのプレハブ
+	GameObject gameController;			//ボム数表示を管理しているオブジェクト入れる用
 
 	void Start () {
 		characterController = GetComponent<CharacterController>();	//コンポーネントをキャッシュしておく	
+		gameController = GameObject.FindWithTag ("GameController");	//GameControllerオブジェクトを探す
 	}
 	
 	void Update () {
@@ -75,6 +77,10 @@ public class Player : MonoBehaviour {
 			Vector3 vecBomPos	= bulletStartPosition.position;
 			//ボムを生成する
 			Instantiate( bomObject, vecBomPos, transform.rotation);
+			//gcって仮の変数にGameControllerのコンポーネントを入れる
+			GameController gc = gameController.GetComponent<GameController>();
+			//GameControllerで管理しているボム数表示の変数を使って計算
+			gc.bom_Count = gc.bom_Count - 1;
 			shoorFlag = true;
 		}else{
 			//入力しない処理

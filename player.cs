@@ -71,16 +71,18 @@ public class Player : MonoBehaviour {
 
 		//ボタン処理(Button Handletで設定したNameを使用)
 		if(CrossPlatformInputManager.GetButtonDown("Shot")){	//パッドのボタン入力判定
-			//入力処理
-			Debug.Log("BOM!!");
-			//ボムは、弾を生成する位置と同じ
-			Vector3 vecBomPos	= bulletStartPosition.position;
-			//ボムを生成する
-			Instantiate( bomObject, vecBomPos, transform.rotation);
 			//gcって仮の変数にGameControllerのコンポーネントを入れる
 			GameController gc = gameController.GetComponent<GameController>();
-			//GameControllerで管理しているボム数表示の変数を使って計算
-			gc.bom_Count = gc.bom_Count - 1;
+			if(gc.bom_Count > 0){
+				//入力処理
+				Debug.Log("BOM!!");
+				//ボムは、弾を生成する位置と同じ
+				Vector3 vecBomPos	= bulletStartPosition.position;
+				//ボムを生成する
+				Instantiate( bomObject, vecBomPos, transform.rotation);
+				//GameControllerで管理しているボム数表示の変数を使って計算
+				gc.bom_Count = gc.bom_Count - 1;
+			}
 			shoorFlag = true;
 		}else{
 			//入力しない処理

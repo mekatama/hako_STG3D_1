@@ -5,6 +5,11 @@ public class Bullet : MonoBehaviour {
 	public float bulletMoveSpeed = 10.0f;	//1秒間に弾が進む距離
 	public int attackPower = 1;				//弾の攻撃力
 
+	void Start(){
+		//このGameObjectを指定時間後［Hierrchy］ビューから削除する
+//		Destroy(gameObject, 0.05f);
+	}
+
 	void Update() {
 		//1秒間の移動量
 		Vector3 vecAddPos = (Vector3.forward * bulletMoveSpeed);

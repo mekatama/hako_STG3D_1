@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject item;		//Enemyから出現させるアイテム
 	public int enemy_score1;	//enemyの点数
 	GameObject gameController;	//スコア表示を管理しているオブジェクト入れる用
+	public GameObject renbaku;	//Enemy破壊時の爆発
 
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();							//コンポーネントをキャッシュしておく
@@ -36,6 +37,8 @@ public class Enemy : MonoBehaviour {
 				gc.total_Score = gc.total_Score + enemy_score1;
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
+				//敵破壊時に連爆
+				Instantiate (renbaku, transform.position, transform.rotation);
 				//四分の一の確率で回復アイテムを落とす
 				if (Random.Range (0, 4) == 0) {
 					Instantiate (item, transform.position, transform.rotation);
@@ -45,7 +48,7 @@ public class Enemy : MonoBehaviour {
 		if(other.tag == "Bom"){
 			Bom1 b = other.GetComponent<Bom1>();	//接触したBomのコンポーネントを取得
 			enemyHp = enemyHp - b.attackPower;		//Bom1スクリプトの攻撃力をHPから引く
-			Debug.Log(enemyHp);
+			Debug.Log("enemyHp" + enemyHp);
 			if(enemyHp <= 0){
 				//スコア加算
 				//gcって仮の変数にGameControllerのコンポーネントを入れる
@@ -54,6 +57,8 @@ public class Enemy : MonoBehaviour {
 				gc.total_Score = gc.total_Score + enemy_score1;
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
+				//敵破壊時に連爆
+				Instantiate (renbaku, transform.position, transform.rotation);
 				//三分の一の確率で回復アイテムを落とす
 				if (Random.Range (0, 3) == 0) {
 					Instantiate (item, transform.position, transform.rotation);

@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour {
 	GameObject gameController;	//スコア表示を管理しているオブジェクト入れる用
 	public GameObject renbaku;	//Enemy破壊時の爆発
 	public bool bakuhatu;		//連爆の有無
+	public int renbakuLevel;	//連爆サイス受渡し用
+
 
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();							//コンポーネントをキャッシュしておく
@@ -36,6 +38,8 @@ public class Enemy : MonoBehaviour {
 				GameController gc = gameController.GetComponent<GameController>();
 				//GameControllerで管理しているスコア表示用の変数を使って計算
 				gc.total_Score = gc.total_Score + enemy_score1;
+				//
+				renbakuLevel = gc.renbaku_Level;
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
 				if(bakuhatu == true){

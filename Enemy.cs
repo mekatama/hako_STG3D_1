@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour {
 				GameController gc = gameController.GetComponent<GameController>();
 				//GameControllerで管理しているスコア表示用の変数を使って計算
 				gc.total_Score = gc.total_Score + enemy_score1;
-				//
+				//連爆サイス取得
 				renbakuLevel = gc.renbaku_Level;
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
@@ -62,6 +62,30 @@ public class Enemy : MonoBehaviour {
 				GameController gc = gameController.GetComponent<GameController>();
 				//GameControllerで管理しているスコア表示用の変数を使って計算
 				gc.total_Score = gc.total_Score + enemy_score1;
+				//このGameObjectを［Hierrchy］ビューから削除する
+				Destroy(gameObject);
+				if(bakuhatu == true){
+					//敵破壊時に連爆
+					Instantiate (renbaku, transform.position, transform.rotation);
+				}
+				//三分の一の確率で回復アイテムを落とす
+				if (Random.Range (0, 3) == 0) {
+					Instantiate (item, transform.position, transform.rotation);
+				}
+			}
+		}
+		if(other.tag == "Bom_r"){
+			Bom1 b = other.GetComponent<Bom1>();	//接触したBomのコンポーネントを取得
+			enemyHp = enemyHp - b.attackPower;		//Bom1スクリプトの攻撃力をHPから引く
+			Debug.Log("enemyHp" + enemyHp);
+			if(enemyHp <= 0){
+				//スコア加算
+				//gcって仮の変数にGameControllerのコンポーネントを入れる
+				GameController gc = gameController.GetComponent<GameController>();
+				//GameControllerで管理しているスコア表示用の変数を使って計算
+				gc.total_Score = gc.total_Score + enemy_score1;
+				//連爆サイス取得
+				renbakuLevel = gc.renbaku_Level;
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
 				if(bakuhatu == true){

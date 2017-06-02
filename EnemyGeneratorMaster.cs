@@ -15,7 +15,7 @@ public class EnemyGeneratorMaster : MonoBehaviour {
         if(timeElapsed > timeOut) {
 			if(Random.Range(0,2) == 0){
 				//敵を生成
-				Instantiate( enemyObject01, enemyPop1.transform.position, enemyPop1.transform.rotation);
+//				Instantiate( enemyObject01, enemyPop1.transform.position, enemyPop1.transform.rotation);
 			}
 			if(Random.Range(0,2) == 1){
 				//敵を生成

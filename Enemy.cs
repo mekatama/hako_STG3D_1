@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour {
 	public GameObject renbaku;	//Enemy破壊時の爆発
 	public bool bakuhatu;		//連爆の有無
 	public int renbakuLevel;	//連爆サイス受渡し用
+	public int renbakuBonus;	//連爆ボーナススコア調整用
+	
 
 
 	void Start () {
@@ -79,13 +81,12 @@ public class Enemy : MonoBehaviour {
 			enemyHp = enemyHp - b.attackPower;		//Bom1スクリプトの攻撃力をHPから引く
 			Debug.Log("enemyHp" + enemyHp);
 			if(enemyHp <= 0){
-				//スコア加算
 				//gcって仮の変数にGameControllerのコンポーネントを入れる
 				GameController gc = gameController.GetComponent<GameController>();
-				//GameControllerで管理しているスコア表示用の変数を使って計算
-				gc.total_Score = gc.total_Score + enemy_score1;
 				//連爆サイス取得
 				renbakuLevel = gc.renbaku_Level;
+				//GameControllerで管理しているスコア表示用の変数を使って計算
+				gc.total_Score = gc.total_Score + (enemy_score1 * renbakuLevel * renbakuBonus);
 				//このGameObjectを［Hierrchy］ビューから削除する
 				Destroy(gameObject);
 				if(bakuhatu == true){
